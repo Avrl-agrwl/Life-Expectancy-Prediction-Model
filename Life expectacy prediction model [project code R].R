@@ -46,7 +46,7 @@ index <- sample(nrow(q1), size = nrow(q1)*0.6,)
 training <- q1[index,]
 validation <- q1[-index,]
 
-############################################################################ Multiple linear regression
+##############################Multiple linear regression######################
 training.lm <- lm(`Life.expectancy`~.,data = training)
 options(scipen = 999)
 summary(training.lm)
@@ -57,9 +57,7 @@ residual_df <- data.frame("Predicted" = predicted, "Actual" = validation$`Life.e
            "Residual" = residual)
 head(residual_df,20)
 
-
 accuracy(predicted, validation$`Life.expectancy`)
-
 
 ############################################# Multiple linear regression with PCA
 
@@ -75,7 +73,6 @@ residual2 <- validation$`Life.expectancy`-prediction2
 residual2_df <- data.frame("Predicted" = prediction2, "Actual" = validation$`Life.expectancy`,
            "Residual" = residual2)
 head(residual2_df,20)
-
 
 ################################lift chart#################################
 ########################################################################### lift chart for MLR 
@@ -102,7 +99,6 @@ plot(c(0,gain$cume.pct.of.total*sum(expectancy))~c(0,gain$cume.obs),
 #baseline
 lines(c(0,sum(expectancy))~c(0,dim(validation)[1]), col = "gray", lty = 2)
 
-
 ################################################## Random forest RT
 
 rpart_model <- rpart(`Life.expectancy`~., data = training, method = "anova")
@@ -115,7 +111,6 @@ pred_valid <- predict(rpart_model,validation)
 error_train <- pred_train-training$`Life.expectancy`
 error_valid <- pred_valid-validation$`Life.expectancy`
 boxplot(error_train, error_valid,names = c("Training", "Validation"))
-
 
 Cp <-  rpart_model$cptable[which.min(rpart_model$cptable[,"xerror"]), "CP"]
 
